@@ -5,7 +5,14 @@
 	$DB_PASSWORD = 'punchbuggy';
 	
 	// create PDO instance
+	try
+	{
 	$pdo = new PDO($DB_DSN_LITE, $DB_USER, $DB_PASSWORD);
 	//$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 	var_dump($pdo);
+	}
+	catch (Exception $e)
+	{
+		echo $e->getMessage();
+	}
 ?>
