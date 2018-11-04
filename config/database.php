@@ -7,12 +7,11 @@
 	// create PDO instance
 	try
 	{
-	$pdo = new PDO($DB_DSN_LITE, $DB_USER, $DB_PASSWORD);
-	//$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-	var_dump($pdo);
+	$pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+	$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 	}
 	catch (Exception $e)
 	{
-		echo $e->getMessage();
+		die($e->getMessage());
 	}
 ?>
