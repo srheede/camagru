@@ -35,9 +35,11 @@ if(isset($_POST['submit']))
 	$username = $_POST['username'];
 	$email = $_POST['email'];
 	$password = $_POST['password'];
-	$sql = "insert into users (username,email,password) values ('$username','$email','$password')";
+	$token = bin2hex(openssl_random_pseudo_bytes(32));
+	$sql = "insert into users (username,email,password,token) values ('$username','$email','$password','$token')";
 	$re = $pdo->query($sql);
-	mail($email, 'camagru registration', 'Please click on the following link to confirm your email address:');
+	$message = "Please click on the following link to confirm your email address: http://localhost:8080/camagru/activation.php?token=$token";
+	mail($email, 'camagru registration', $message);
 	header("Location:register.php?err=" . urlencode("Your account has successfully been created. Please check your email for the verification link to activate your account."));
 	exit();
 }
