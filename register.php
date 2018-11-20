@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(isset($_SESSION['username']))
+{
+	header("Location:account.php");
+	exit();
+}
 include 'config/database.php';
 function isunique($user)
 {
@@ -22,6 +28,11 @@ if(isset($_POST['submit']))
 		header("Location:register.php?err=" . urlencode("Passwords don't match."));
 		exit();
 	}
+	else if (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $_POST['password']))
+	{
+		header("Location:register.php?err=" . urlencode("Password must contain numbers and letters."));
+		exit();
+	}
 	else if (!isunique($_POST['username']))
 	{
 		header("Location:register.php?err=" . urlencode("Username already in use."));
@@ -34,13 +45,13 @@ if(isset($_POST['submit']))
 	}
 	$username = $_POST['username'];
 	$email = $_POST['email'];
-	$password = $_POST['password'];
+	$password = hash('haval256,4', $_POST['password']);
 	$token = bin2hex(openssl_random_pseudo_bytes(32));
 	$sql = "insert into users (username,email,password,token) values ('$username','$email','$password','$token')";
 	$re = $pdo->query($sql);
 	$message = "Please click on the following link to confirm your email address: http://localhost:8080/camagru/activation.php?token=$token";
 	mail($email, 'camagru registration', $message);
-	header("Location:register.php?err=" . urlencode("Your account has successfully been created. Please check your email for the verification link to activate your account."));
+	header("Location:login.php?err=" . urlencode("Your account has successfully been created. Please check your email for the verification link to activate your account."));
 	exit();
 }
 ?>
