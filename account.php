@@ -23,6 +23,7 @@
 <video id="video" width="400px" height="300px"></video>
 <a href="#" id="capture">Take Photo</a>
 <canvas id="canvas" width="400px" height="300px"></canvas>
+<img id="photo" src="" alt="">
 <script src="photo.js"></script>
 <p><a href="changepwmail.php">Change Password</a></p>
 <p><a href="logout.php">Logout</a></p>
