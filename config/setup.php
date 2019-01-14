@@ -1,5 +1,5 @@
 <?php
-$DB_USER = 'root';
+$DB_USER = 'rheeders';
 $DB_PASSWORD = 'punchbuggy';
 $DB_SERVER = 'localhost';
 $DB_NAME = 'camagru';
@@ -29,7 +29,13 @@ try
     `token` VARCHAR(100) NOT NULL,
     `status` INT(1) NOT NULL DEFAULT '0'
   ) DEFAULT CHARSET=utf8";
+    $gal = "CREATE TABLE IF NOT EXISTS `gallery` (
+    `image_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `user_id` int NOT NULL,
+    `image` varchar(20000) NOT NULL
+  ) DEFAULT CHARSET=utf8";
     $pdo->exec($sql);
+    $pdo->exec($gal);
     echo "Table created successfully<br>";
 }
 catch (PDOException $e)

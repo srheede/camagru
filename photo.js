@@ -1,30 +1,15 @@
-(function()
-{
-    var video = document.getElementById('video'),
-        canvas = document.getElementById('canvas'),
-        context = canvas.getContext('2d'),
-        photo = document.getElementById('photo'),
-        URL = window.URL || window.webkitURL;
-
-    navigator.getMedia =    navigator.getUserMedia ||
-                            navigator.webkitGetUserMedia ||
-                            navigator.mozGetUserMedia ||
-                            navigator.msGetUserMedia;
-
-    navigator.getMedia(
-    {
-        video: true,
-        audio: false
-    },
-    function(stream)
-    {
-        video.src = URL.createObjectURL(stream);
-        video.play();
-    },
-    function(error)
-    {
-        //error.code
-    })
+(function() {
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var video = document.getElementById('video');
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({
+            video: true 
+        }).then(function(stream) {
+            video.srcObject = stream;
+            video.play();
+        });
+    }
 
     document.getElementById('capture').addEventListener('click', function()
     {
