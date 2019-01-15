@@ -32,7 +32,7 @@ try
     $gal = "CREATE TABLE IF NOT EXISTS `gallery` (
     `image_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `user_id` int NOT NULL,
-    `image` varchar(20000) NOT NULL
+    `image` varchar(max) NOT NULL
   ) DEFAULT CHARSET=utf8";
     $pdo->exec($sql);
     $pdo->exec($gal);
