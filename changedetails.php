@@ -23,14 +23,16 @@ function isunique($user)
 		return true;		
 	}
 }
-if(isset($_SESSION['token']))
+if(isset($_GET['token']))
 {
-	$token = $_SESSION['token'];
+	$token = $_GET['token'];
+	echo $token;	
 	if(isset($_POST['submit']))
 	{
+		echo $token;		
 		if (!isunique($_POST['username']) || !isunique($_POST['email']))
 		{
-			header("Location:changedetails.php?err=" . urlencode("Username or email already in use."));
+			header("Location:changedetails.php?err=" . urlencode("Username or email already in use."). "&token=" . urlencode($token));
 			exit();	
 		}
 		else if ($_POST['password'] != $_POST['confirm_password'])
@@ -43,6 +45,7 @@ if(isset($_SESSION['token']))
 			header("Location:changedetails.php?err=" . urlencode("Password must contain numbers and letters."). "&token=" . urlencode($token));
 			exit();
 		}
+		echo $token;		
 		$password = hash('haval256,4', $_POST['password']);
 		$username = $_POST['username'];
 		$email = $_POST['email'];
@@ -50,6 +53,7 @@ if(isset($_SESSION['token']))
 			$notify = 1;
 		else
 			$notify = 0;
+		echo $token;
 		try {
 			$exec = $pdo->prepare("UPDATE users SET username='$username', email='$email', password='$password', notify='$notify' where token='$token'");
 			$exec->execute();
@@ -80,7 +84,7 @@ if(isset($_SESSION['token']))
 			<?php echo $_GET['err']; ?>
 		</div>
 		<?php } ?>
-			<form method="post" action="changedetails.php">
+			<form method="post">
 				<div>
 					<label>Username</label>
 					<input type="text" name="username" placeholder="Username" required>

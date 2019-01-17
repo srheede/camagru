@@ -1,6 +1,5 @@
 <?php
 	include 'config/database.php';
-	$token = $_GET['token'];
 	if(isset($_POST['submit']))
 	{
 		if ($_POST['password'] != $_POST['confirm_password'])
@@ -13,9 +12,10 @@
 			header("Location:register.php?err=" . urlencode("Password must contain numbers and letters."));
 			exit();
 		}
-		$password = hash('haval256,4', $_POST['password']);
+		$pwtoken = $_GET['token'];
+		$new = hash('haval256,4', $_POST['password']);
 		try {
-			$exec = $pdo->prepare("UPDATE users SET password='$password' where pwtoken='$token'");
+			$exec = $pdo->prepare("UPDATE users SET password='$new' where pwtoken='$pwtoken'");
 			if ($exec->execute())
 			{
 				header("Location:login.php?err=Your password has been reset! Please log in here.");
@@ -49,7 +49,7 @@
 		<?php } ?>
 	<div>
 		<p>Enter new password:</p>
-			<form method="post" action="resetpw.php">
+			<form method="post">
 				<div>
 					<label>Password</label>
 					<input type="password" name="password" placeholder="Password" required>

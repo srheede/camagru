@@ -7,9 +7,7 @@
 		exit();
 	}
 	if (isset($_POST['upload'])) {
-		// Get image name
 		$image = $_FILES['image']['name'];
-		// image file directory
 		$target = "images/".basename($image);
 		$user_id = $_SESSION['user_id'];
 		try {
@@ -31,13 +29,9 @@
 		}
 	}
 	if (isset($_POST['save'])) {
-		// Get image name
 		$image = $_POST['dataURL'];
-		// image file directory
 		$user_id = $_SESSION['user_id'];
 		try {
-			//$exec = $pdo->prepare("INSERT INTO gallery (image, user_id) VALUES ('$image', '$user_id')");
-			//$exec->execute();
 			header("Location:account.php?err=Image uploaded successfully!");
 			exit();
 		}
@@ -84,7 +78,7 @@
   </form>
   </div>
 <p><a href="gallery.php">View Gallery</a></p>
-<p><a href="changedetails.php">Change Account Details</a></p>
+<p><a href="changedetailsmail.php">Change Account Details</a></p>
 <p><a href="logout.php">Logout</a></p>
 </body>
 </html>
