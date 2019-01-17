@@ -27,12 +27,14 @@ try
     `password` varchar(255) NOT NULL,
     `email` VARCHAR(100) UNIQUE KEY NOT NULL,
     `token` VARCHAR(100) NOT NULL,
-    `status` INT(1) NOT NULL DEFAULT '0'
+    `pwtoken` VARCHAR(100),
+    `status` INT(1) DEFAULT '0' NOT NULL,
+    `notify` INT(1) DEFAULT '1' NOT NULL
   ) DEFAULT CHARSET=utf8";
     $gal = "CREATE TABLE IF NOT EXISTS `gallery` (
     `image_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `user_id` int NOT NULL,
-    `image` varchar(max) NOT NULL
+    `image` varchar(20000) NOT NULL
   ) DEFAULT CHARSET=utf8";
     $pdo->exec($sql);
     $pdo->exec($gal);

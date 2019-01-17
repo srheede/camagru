@@ -2,6 +2,7 @@
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var video = document.getElementById('video');
+
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({
             video: true 
@@ -15,5 +16,6 @@
     {
         context.drawImage(video, 0, 0, 400, 300);
         photo.setAttribute('src', canvas.toDataURL('image/png'));
+        document.getElementById('dataURL').value = canvas.toDataURL('img/png');
     })
 })();

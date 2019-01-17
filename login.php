@@ -62,6 +62,7 @@ if(isset($_POST['submit']))
 					<button type="submit" name="submit">Login</button>
 				</div>
 			</form>
+			<p>Forgot password? <a href="reset.php">Reset password</a></p>
 			<p>Not registered yet? <a href="register.php">Register</a></p>
 	</div>
 </div>
