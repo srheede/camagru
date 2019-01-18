@@ -5,7 +5,7 @@ if(isset($_POST['submit']))
 	$email = $_POST['email'];
 	$check = "select * from users where email='$email'";
 	global $pdo;
-	
+
 	$result_check = $pdo->query($check);
 	if ($result_check->rowCount() > 0)
 	{

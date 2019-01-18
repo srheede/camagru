@@ -63,7 +63,6 @@
 		<button type="submit" name="save">Save Photo</button>
 	</div>
 </form>
-<p><a href="#" id="save">Save Photo</a></p>
 <script src="photo.js"></script>
 <div>
 <p>Upload Image</p>
@@ -77,7 +76,8 @@
   	</div>
   </form>
   </div>
-<p><a href="gallery.php">View Gallery</a></p>
+<p><a href="gallery.php">View Personal Gallery</a></p>
+<p><a href="publicgallery.php">View Public Gallery</a></p>
 <p><a href="changedetailsmail.php">Change Account Details</a></p>
 <p><a href="logout.php">Logout</a></p>
 </body>

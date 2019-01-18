@@ -1,13 +1,6 @@
 <?php
-session_start();
 include 'config/database.php';
-if(!isset($_SESSION['username']))
-{
-	header("Location:login.php?err=". urlencode("You are not logged in to an account."));
-	exit();
-}
-$user_id = $_SESSION['user_id'];
-$sql = "select * from gallery where user_id='$user_id'";
+$sql = "select * from gallery";
 global $pdo;
 $gallery = $pdo->query($sql);
 $item;
