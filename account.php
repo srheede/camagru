@@ -28,17 +28,20 @@
 			echo "Error: ". $e->getMessage(); 
 		}
 	}
-	if (isset($_POST['save'])) {
+	if (isset($_POST['save']))
+	{
 		$image = $_POST['dataURL'];
+		print_r ($_POST['dataURL']);
+		echo $_POST['dataURL'];
 		$user_id = $_SESSION['user_id'];
-		try {
-			header("Location:account.php?err=Image uploaded successfully!");
+	//	try {
+			header("Location:account.php?err=".$_POST['dataURL']);
 			exit();
-		}
-		catch (PDOException $e)
-		{
-			echo "Error: ". $e->getMessage(); 
-		}
+	//	}
+	//	catch (PDOException $e)
+	//	{
+	//		echo "Error: ". $e->getMessage(); 
+	//	}
 	}
 ?>
 <html lang="en">
@@ -57,9 +60,9 @@
 <video id="video" width="400px" height="300px"></video>
 <canvas id="canvas" width="400px" height="300px"></canvas>
 <p><a href="#" id="capture">Take Photo</a></p>
-<form method="post" action="account.php">
+<form method="post" enctype="multipart/form-data">
 	<div>
-		<input type="text" name="dataURL" style="display:none" id="dataURL"/>
+		<input type="text" value="" name="dataURL" id="dataURL">
 		<button type="submit" name="save">Save Photo</button>
 	</div>
 </form>
@@ -67,7 +70,6 @@
 <div>
 <p>Upload Image</p>
 <form method="POST" action="account.php" enctype="multipart/form-data">
-<input type="hidden" name="size" value="1000000">
   	<div>
   	  <input type="file" name="image">
   	</div>
