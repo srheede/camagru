@@ -80,7 +80,7 @@
   </div>
 <p><a href="gallery.php">View Personal Gallery</a></p>
 <p><a href="publicgallery.php">View Public Gallery</a></p>
-<p><a href="changedetailsmail.php">Change Account Details</a></p>
+<p><a href="changedetails.php">Change Account Details</a></p>
 <p><a href="logout.php">Logout</a></p>
 </body>
 </html>

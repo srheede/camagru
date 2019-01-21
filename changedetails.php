@@ -10,6 +10,8 @@ function isunique($user)
 {
 	if ($user === $_SESSION['username'] || $user === $_SESSION['email'])
 		return true;
+	if ($user === $_SESSION['email'])
+		return true;	
 	$email = "select * from users where email='$user'";
 	$username = "select * from users where username='$user'";
 	global $pdo;
@@ -23,26 +25,27 @@ function isunique($user)
 		return true;		
 	}
 }
-if(isset($_GET['token']))
-{
-	$token = $_GET['token'];
-	echo $token;	
 	if(isset($_POST['submit']))
 	{
-		echo $token;		
-		if (!isunique($_POST['username']) || !isunique($_POST['email']))
+		$user_id = $_SESSION['user_id'];
+		if (!isunique($_POST['username']))
 		{
-			header("Location:changedetails.php?err=" . urlencode("Username or email already in use."). "&token=" . urlencode($token));
+			header("Location:changedetails.php?err=" . urlencode("Username is already in use."));
+			exit();	
+		}
+		else if (!isunique($_POST['email']))
+		{
+			header("Location:changedetails.php?err=" . urlencode("Email is already in use."));
 			exit();	
 		}
 		else if ($_POST['password'] != $_POST['confirm_password'])
 		{
-			header("Location:changedetails.php?err=" . urlencode("Passwords don't match."). "&token=" . urlencode($token));
+			header("Location:changedetails.php?err=" . urlencode("Passwords don't match."));
 			exit();
 		}
 		else if (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $_POST['password']))
 		{
-			header("Location:changedetails.php?err=" . urlencode("Password must contain numbers and letters."). "&token=" . urlencode($token));
+			header("Location:changedetails.php?err=" . urlencode("Password must contain numbers and letters."));
 			exit();
 		}
 		echo $token;		
@@ -55,7 +58,7 @@ if(isset($_GET['token']))
 			$notify = 0;
 		echo $token;
 		try {
-			$exec = $pdo->prepare("UPDATE users SET username='$username', email='$email', password='$password', notify='$notify' where token='$token'");
+			$exec = $pdo->prepare("UPDATE users SET username='$username', email='$email', password='$password', notify='$notify' where user_id='$user_id'");
 			$exec->execute();
 			header("Location:account.php?err=Your details have been changed!");
 			exit();
@@ -65,7 +68,6 @@ if(isset($_GET['token']))
 			echo "Error: ". $e->getMessage(); 
 		}
 	}
-}
 
 ?>
 <html lang="en">
