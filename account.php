@@ -30,19 +30,34 @@
 	}
 	if (isset($_POST['save']))
 	{
-		$image = $_POST['dataURL'];
-		print_r($image);
-		echo $image;
 		$user_id = $_SESSION['user_id'];
-		exit ();
-	//	try {
-		//	header("Location:account.php?err=".$_POST['dataURL']);
-		//	exit();
-	//	}
-	//	catch (PDOException $e)
-	//	{
-	//		echo "Error: ". $e->getMessage(); 
-	//	}
+		define('UPLOAD_DIR', 'images/');
+		$img = $_POST['dataURL'];
+		$img = str_replace('data:image/png;base64,', '', $img);
+		$img = str_replace(' ', '+', $img);
+		$data = base64_decode($img);
+		$img_name = uniqid() . '.png';
+		$file = UPLOAD_DIR . $img_name;
+		$success = file_put_contents($file, $data);
+		if ($success)
+		{
+			try
+			{
+				$exec = $pdo->prepare("INSERT INTO gallery (image, user_id) VALUES ('$img_name', '$user_id')");
+				$exec->execute();
+				header("Location:account.php?err=Image saved successfully!");
+				exit();
+			}
+			catch (PDOException $e)
+			{
+				echo "Error: ". $e->getMessage(); 
+			}
+		}
+		else
+		{
+			header("Location:account.php?err=Unable to save image.");
+			exit();
+		}
 	}
 ?>
 <html lang="en">

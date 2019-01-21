@@ -32,9 +32,10 @@ try
     `notify` INT(1) DEFAULT '1' NOT NULL
   ) DEFAULT CHARSET=utf8";
     $gal = "CREATE TABLE IF NOT EXISTS `gallery` (
-    `image_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `user_id` int NOT NULL,
-    `image` varchar(20000) NOT NULL
+    `image_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+    `image` MEDIUMTEXT NOT NULL,
+	`likes` INT DEFAULT '0' NOT NULL
   ) DEFAULT CHARSET=utf8";
     $pdo->exec($sql);
     $pdo->exec($gal);

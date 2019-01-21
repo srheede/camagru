@@ -56,7 +56,6 @@ function isunique($user)
 			$notify = 1;
 		else
 			$notify = 0;
-		echo $token;
 		try {
 			$exec = $pdo->prepare("UPDATE users SET username='$username', email='$email', password='$password', notify='$notify' where user_id='$user_id'");
 			$exec->execute();
