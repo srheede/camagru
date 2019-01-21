@@ -31,12 +31,13 @@
 	if (isset($_POST['save']))
 	{
 		$image = $_POST['dataURL'];
-		print_r ($_POST['dataURL']);
-		echo $_POST['dataURL'];
+		print_r($image);
+		echo $image;
 		$user_id = $_SESSION['user_id'];
+		exit ();
 	//	try {
-			header("Location:account.php?err=".$_POST['dataURL']);
-			exit();
+		//	header("Location:account.php?err=".$_POST['dataURL']);
+		//	exit();
 	//	}
 	//	catch (PDOException $e)
 	//	{
@@ -60,9 +61,9 @@
 <video id="video" width="400px" height="300px"></video>
 <canvas id="canvas" width="400px" height="300px"></canvas>
 <p><a href="#" id="capture">Take Photo</a></p>
-<form method="post" enctype="multipart/form-data">
+<form method="post">
 	<div>
-		<input type="text" value="" name="dataURL" id="dataURL">
+		<input type="hidden" value="" name="dataURL" id="dataURL">
 		<button type="submit" name="save">Save Photo</button>
 	</div>
 </form>

@@ -2,7 +2,8 @@
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var video = document.getElementById('video');
-
+    var photo = new Image();
+    
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({
             video: true 
@@ -15,7 +16,8 @@
     document.getElementById('capture').addEventListener('click', function()
     {
         context.drawImage(video, 0, 0, 400, 300);
-        photo.setAttribute('src', canvas.toDataURL('image/png'));
-        document.getElementById('dataURL').value = "adasf";//canvas.toDataURL('img/png');
+        photo.setAttribute('src', canvas.toDataURL());
+        document.getElementById('dataURL').value = canvas.toDataURL();
+        console.log(document.getElementById('dataURL').value);
     })
 })();
