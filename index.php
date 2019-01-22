@@ -17,6 +17,6 @@ include 'config/database.php';
 <body>
 <p><a href="register.php">Register</a></p>
 <p><a href="login.php">Login</a></p>
-
+<p><a href="publicgallery.php">View Public Gallery</a></p>
 </body>
 </html>

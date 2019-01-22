@@ -73,13 +73,13 @@
 		<?php echo $_GET['err']; ?>
 	</div>
 <?php } ?>
-<video id="video" width="400px" height="300px"></video>
+<a href="#" id="capture"><video id="video" width="400px" height="300px"></video></a>
 <canvas id="canvas" width="400px" height="300px"></canvas>
-<p><a href="#" id="capture">Take Photo</a></p>
+<p><img id="classified" src="stickers/classified.png" height="80px"><img id="pedobear" src="stickers/pedobear.png" height="80px"><img id="oooh" src="stickers/oooh.png" height="80px"></p>
 <form method="post">
 	<div>
 		<input type="hidden" value="" name="dataURL" id="dataURL">
-		<button type="submit" name="save">Save Photo</button>
+		<button type="submit" name="save" id="save">Save Photo</button>
 	</div>
 </form>
 <script src="photo.js"></script>

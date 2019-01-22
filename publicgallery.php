@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config/database.php';
 $sql = "select * from gallery";
 global $pdo;
@@ -10,6 +11,12 @@ $item .= "<a href='image.php?id=$image->image_id'>" .
     
     "<img src='images/$image->image' alt='' height='30%'>" .
             "</a>";
+}
+
+$logout;
+if(isset($_SESSION['username']))
+{
+    $logout .= "<p><a href='logout.php'>Logout</a></p>";
 }
 
 ?>
@@ -25,7 +32,7 @@ $item .= "<a href='image.php?id=$image->image_id'>" .
             <a class="back" href="account.php">back</a>
         </div>
         <div>
-        <?php echo $item; ?>
+        <?php echo $item; echo $logout; ?>
         </div>
     </body>
 </html>

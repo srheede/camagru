@@ -8,13 +8,18 @@ if(!isset($_SESSION['username']))
 include 'config/database.php';
 function isunique($user)
 {
-	if ($user === $_SESSION['username'] || $user === $_SESSION['email'])
+	$user_id = $_SESSION['user_id'];
+	$sql = "select * from users where user_id='$user_id'";
+	global $pdo;
+	
+	$result = $pdo->query($sql);
+	$result = $result->fetch(PDO::FETCH_ASSOC);
+	if ($user === $result['username'])
 		return true;
-	if ($user === $_SESSION['email'])
+	if ($user === $result['email'])
 		return true;	
 	$email = "select * from users where email='$user'";
 	$username = "select * from users where username='$user'";
-	global $pdo;
 	
 	$result_email = $pdo->query($email);
 	$result_username = $pdo->query($username);

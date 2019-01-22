@@ -34,5 +34,6 @@ $item .= "<a href='image.php?id=$image->image_id'>" .
         <div>
         <?php echo $item; ?>
         </div>
+        <p><a href='logout.php'>Logout</a></p>
     </body>
 </html>

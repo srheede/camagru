@@ -8,14 +8,20 @@ $image = $pdo->query($sql);
 $result = $image->fetch(PDO::FETCH_ASSOC);
 $item;
 $delete;
+$login;
 if(isset($_SESSION['username']))
 {
+	if ($_SESSION['user_id'] === $result['user_id'])
+	{
+		$delete .= "
+		<div>
+			<p><a href='image.php?id=";
+		$delete .= $image_id;
+		$delete .= "&delete=true'>Delete Photo</a></p>
+		</div>";
+	}
+
 	$item .= "
-	<div>
-		<p>Number of likes: ";
-	$item .= $result['likes'];
-	$item .= "</p>
-	</div>
     <div>
         <form method='post'>
             <div>
@@ -26,23 +32,17 @@ if(isset($_SESSION['username']))
     <div>
         <form method='post'>
             <div>
-                <textarea type='text' name='username' placeholder='Comment here' required></textarea>
+                <textarea type='text' name='comment' id='comment' placeholder='Comment here' required></textarea>
             </div>
             <div>
                 <button type='submit' name='submit'>Submit</button>
             </div>
         </form>
 	</div>";
-	if ($_SESSION['user_id'] === $result['user_id'])
-	{
-		$delete .= "
-		<div>
-			<p><a href='image.php?id=";
-		$delete .= $image_id;
-		$delete .= "&delete=true'>Delete Photo</a></p>
-		</div>";
-	}
+		
+	$logout .= "<p><a href='logout.php'>Logout</a></p>";
 }
+
 if (isset($_GET['delete']))
 {
 	$image_id = $_GET['id'];
@@ -58,6 +58,7 @@ if (isset($_GET['delete']))
 		echo "Error: ". $e->getMessage(); 
 	}
 }
+
 if(isset($_POST['like']))
 {
 	$image_id = $_GET['id'];
@@ -73,6 +74,32 @@ if(isset($_POST['like']))
 	}
 }
 
+if(isset($_POST['submit']))
+{	
+	$image_id = $_GET['id'];
+	$user_id = $_SESSION['user_id'];
+	$post_comment = $_POST['comment'];
+	try {
+		$exec = $pdo->prepare("insert into comments (image_id,user_id,comment) values ('$image_id','$user_id','$post_comment')");
+		$exec->execute();
+		header("Location:image.php?id=".$image_id);
+		exit();
+	}
+	catch (PDOException $e)
+	{
+		echo "Error: ". $e->getMessage(); 
+	}
+}
+
+$user_id = $_SESSION['user_id'];
+$sql = "select * from comments";
+$com = $pdo->query($sql);
+//$com = $com->fetch(PDO::FETCH_ASSOC);
+$comments;
+foreach ($com as $comment)
+{
+	$comments .= "<div><p>$comment->comment</p></div>";
+}
 ?>
 <html lang="en">
     <head>
@@ -83,13 +110,15 @@ if(isset($_POST['like']))
     </head>
     <body>
         <div>
-		<script>
-			document.write('<a href="' + document.referrer + '">Back</a>');
-		</script>
+			<p><a href="gallery.php">Back</a></p>
         </div>
         <div>
             <img src="images/<?php echo $result['image']; ?>" alt="" height="90%">
         </div>
-	<?php echo $delete; echo $item; ?>
+		<?php echo $delete; ?>
+		<div>
+		<p>Number of likes: <?php echo $result['likes']; ?></p>
+		</div>
+		<?php echo $item; echo $comments; echo $logout; ?>
     </body>
 </html>

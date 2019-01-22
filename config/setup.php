@@ -1,5 +1,5 @@
 <?php
-$DB_USER = 'root';
+$DB_USER = 'rheeders';
 $DB_PASSWORD = 'punchbuggy';
 $DB_SERVER = 'localhost';
 $DB_NAME = 'camagru';
@@ -35,11 +35,18 @@ try
     `image_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `user_id` INT NOT NULL,
     `image` MEDIUMTEXT NOT NULL,
-	`likes` INT DEFAULT '0' NOT NULL
+    `likes` INT DEFAULT '0' NOT NULL
   ) DEFAULT CHARSET=utf8";
+    $comments = "CREATE TABLE IF NOT EXISTS `comments` (
+        `comment_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        `image_id` INT NOT NULL,
+        `user_id` INT NOT NULL,
+        `comment` VARCHAR(300)
+      ) DEFAULT CHARSET=utf8";
     $pdo->exec($sql);
     $pdo->exec($gal);
-    echo "Table created successfully<br>";
+    $pdo->exec($comments);
+    echo "Tables created successfully<br>";
 }
 catch (PDOException $e)
 	{
