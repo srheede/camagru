@@ -33,6 +33,7 @@ try
   ) DEFAULT CHARSET=utf8";
     $gal = "CREATE TABLE IF NOT EXISTS `gallery` (
     `image_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `date` DATETIME NOT NULL,
     `user_id` INT NOT NULL,
     `image` MEDIUMTEXT NOT NULL,
     `likes` INT DEFAULT '0' NOT NULL
@@ -40,7 +41,7 @@ try
     $comments = "CREATE TABLE IF NOT EXISTS `comments` (
         `comment_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         `image_id` INT NOT NULL,
-        `user_id` INT NOT NULL,
+        `username` VARCHAR(50) NOT NULL,
         `comment` VARCHAR(300)
       ) DEFAULT CHARSET=utf8";
     $pdo->exec($sql);

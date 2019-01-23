@@ -72,15 +72,26 @@ if(isset($_POST['like']))
 	{
 		echo "Error: ". $e->getMessage(); 
 	}
+
+	$sql = "select * from gallery where image_id='$image_id'";
+	$image = $pdo->query($sql);
+	$result = $image->fetch(PDO::FETCH_ASSOC);
+	$user_id = $result['user_id'];
+	$sql = "select * from users where user_id='$user_id'";
+	$user = $pdo->query($sql);
+	$result = $user->fetch(PDO::FETCH_ASSOC);
+	$email = $result['email'];
+	$message = $_SESSION['username']." liked your image.";
+	mail($email, 'camagru liked image', $message);
 }
 
 if(isset($_POST['submit']))
 {	
 	$image_id = $_GET['id'];
-	$user_id = $_SESSION['user_id'];
+	$username = $_SESSION['username'];
 	$post_comment = $_POST['comment'];
 	try {
-		$exec = $pdo->prepare("insert into comments (image_id,user_id,comment) values ('$image_id','$user_id','$post_comment')");
+		$exec = $pdo->prepare("insert into comments (image_id,username,comment) values ('$image_id','$username','$post_comment')");
 		$exec->execute();
 		header("Location:image.php?id=".$image_id);
 		exit();
@@ -89,16 +100,26 @@ if(isset($_POST['submit']))
 	{
 		echo "Error: ". $e->getMessage(); 
 	}
+
+	$sql = "select * from gallery where image_id='$image_id'";
+	$image = $pdo->query($sql);
+	$result = $image->fetch(PDO::FETCH_ASSOC);
+	$user_id = $result['user_id'];
+	$sql = "select * from users where user_id='$user_id'";
+	$user = $pdo->query($sql);
+	$result = $user->fetch(PDO::FETCH_ASSOC);
+	$email = $result['email'];
+	$message = $_SESSION['username']." commented on your image.";
+	mail($email, 'camagru comment on image', $message);
 }
 
 $user_id = $_SESSION['user_id'];
-$sql = "select * from comments";
+$sql = "select * from comments where image_id=$image_id";
 $com = $pdo->query($sql);
-//$com = $com->fetch(PDO::FETCH_ASSOC);
 $comments;
 foreach ($com as $comment)
 {
-	$comments .= "<div><p>$comment->comment</p></div>";
+	$comments .= "<div><p>$comment->username: $comment->comment</p></div>";
 }
 ?>
 <html lang="en">

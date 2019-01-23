@@ -65,6 +65,9 @@ if(isset($_POST['submit']))
 <body>
 <div>
 	<div>
+		<a href="index.php">home</a>
+	</div>
+	<div>
 		<p>Register:</p>
 		<?php if(isset($_GET['err'])) {?>
 		<div>

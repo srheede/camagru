@@ -7,11 +7,12 @@
 		exit();
 	}
 	if (isset($_POST['upload'])) {
+		$date = date('Y-m-d H:i:s');
 		$image = $_FILES['image']['name'];
 		$target = "images/".basename($image);
 		$user_id = $_SESSION['user_id'];
 		try {
-			$exec = $pdo->prepare("INSERT INTO gallery (image, user_id) VALUES ('$image', '$user_id')");
+			$exec = $pdo->prepare("INSERT INTO gallery (date, image, user_id) VALUES ('$date', '$image', '$user_id')");
 			$exec->execute();
 			if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
 				header("Location:account.php?err=Image uploaded successfully!");
@@ -30,6 +31,7 @@
 	}
 	if (isset($_POST['save']))
 	{
+		$date = date('Y-m-d H:i:s');
 		$user_id = $_SESSION['user_id'];
 		define('UPLOAD_DIR', 'images/');
 		$img = $_POST['dataURL'];
@@ -43,7 +45,7 @@
 		{
 			try
 			{
-				$exec = $pdo->prepare("INSERT INTO gallery (image, user_id) VALUES ('$img_name', '$user_id')");
+				$exec = $pdo->prepare("INSERT INTO gallery (date, image, user_id) VALUES ('$date', '$img_name', '$user_id')");
 				$exec->execute();
 				header("Location:account.php?err=Image saved successfully!");
 				exit();

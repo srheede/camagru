@@ -1,7 +1,14 @@
 <?php
 session_start();
 include 'config/database.php';
-$sql = "select * from gallery";
+
+if (isset($_GET['page']))
+    $page = $_GET['page'];
+else 
+    $page = 1;
+
+$offset = ($page - 1) * 5;
+$sql = "SELECT * FROM gallery ORDER BY user_id, date  LIMIT $offset, 5";
 global $pdo;
 $gallery = $pdo->query($sql);
 $item;
@@ -16,8 +23,45 @@ $item .= "<a href='image.php?id=$image->image_id'>" .
 $logout;
 if(isset($_SESSION['username']))
 {
+    $back .= "
+    <div>
+        <a class='back' href='account.php'>back</a>
+    </div>";
+
     $logout .= "<p><a href='logout.php'>Logout</a></p>";
 }
+else
+{
+    $back .= "
+    <div>
+        <a class='home' href='index.php'>home</a>
+    </div>";
+}
+    
+    $sql = "select count(*) from gallery";
+    $count = $pdo->query($sql);
+    $count = $count->fetch(PDO::FETCH_ASSOC);
+    $total_pages = ceil($count['count(*)']/5);
+    $pagination;
+    
+    if ($page > 1)
+        $pagination .= "<a href='?page=1'><<</a> <a href='?page=".($page - 1)."'><</a> ";    
+
+    if ($total_pages > 1)
+    {
+        $count = 1;
+
+        while ($count <= $total_pages)
+        {
+            $pagination .= "<a href='?page=".$count."'> ".$count." </a>";
+            $count = $count + 1;
+        }
+    }
+
+    if ($page < $total_pages)
+    {
+        $pagination .= "<a href='?page=".($page + 1)."'>></a> <a href='?page=$total_pages'>>></a>";
+    }
 
 ?>
 <html lang="en">
@@ -29,10 +73,11 @@ if(isset($_SESSION['username']))
     </head>
     <body>
         <div>
-            <a class="back" href="account.php">back</a>
-        </div>
+        <?php echo $back; echo $item; ?>
         <div>
-        <?php echo $item; echo $logout; ?>
+            <?php echo $pagination; ?>
+        </div>
+        <?php echo $logout; ?>
         </div>
     </body>
 </html>
