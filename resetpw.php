@@ -77,4 +77,7 @@
 	</div>
 </div>
 </body>
+<footer>
+		<p>© SJRHEEDERS</p>
+</footer>
 </html>

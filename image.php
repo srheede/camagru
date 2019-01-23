@@ -62,17 +62,7 @@ if (isset($_GET['delete']))
 if(isset($_POST['like']))
 {
 	$image_id = $_GET['id'];
-	try {
-		$exec = $pdo->prepare("UPDATE gallery SET likes = likes + 1 where image_id='$image_id'");
-		$exec->execute();
-		header("Location:image.php?id=".$image_id);
-		exit();
-	}
-	catch (PDOException $e)
-	{
-		echo "Error: ". $e->getMessage(); 
-	}
-
+	
 	$sql = "select * from gallery where image_id='$image_id'";
 	$image = $pdo->query($sql);
 	$result = $image->fetch(PDO::FETCH_ASSOC);
@@ -83,11 +73,34 @@ if(isset($_POST['like']))
 	$email = $result['email'];
 	$message = $_SESSION['username']." liked your image.";
 	mail($email, 'camagru liked image', $message);
+	
+	try {
+		$exec = $pdo->prepare("UPDATE gallery SET likes = likes + 1 where image_id='$image_id'");
+		$exec->execute();
+		header("Location:image.php?id=".$image_id);
+		exit();
+	}
+	catch (PDOException $e)
+	{
+		echo "Error: ". $e->getMessage(); 
+	}
 }
 
 if(isset($_POST['submit']))
 {	
 	$image_id = $_GET['id'];
+	
+	$sql = "select * from gallery where image_id='$image_id'";
+	$image = $pdo->query($sql);
+	$result = $image->fetch(PDO::FETCH_ASSOC);
+	$user_id = $result['user_id'];
+	$sql = "select * from users where user_id='$user_id'";
+	$user = $pdo->query($sql);
+	$result = $user->fetch(PDO::FETCH_ASSOC);
+	$email = $result['email'];
+	$message = $_SESSION['username']." commented on your image.";
+	mail($email, 'camagru comment on image', $message);
+	
 	$username = $_SESSION['username'];
 	$post_comment = $_POST['comment'];
 	try {
@@ -100,17 +113,6 @@ if(isset($_POST['submit']))
 	{
 		echo "Error: ". $e->getMessage(); 
 	}
-
-	$sql = "select * from gallery where image_id='$image_id'";
-	$image = $pdo->query($sql);
-	$result = $image->fetch(PDO::FETCH_ASSOC);
-	$user_id = $result['user_id'];
-	$sql = "select * from users where user_id='$user_id'";
-	$user = $pdo->query($sql);
-	$result = $user->fetch(PDO::FETCH_ASSOC);
-	$email = $result['email'];
-	$message = $_SESSION['username']." commented on your image.";
-	mail($email, 'camagru comment on image', $message);
 }
 
 $user_id = $_SESSION['user_id'];
@@ -142,4 +144,7 @@ foreach ($com as $comment)
 		</div>
 		<?php echo $item; echo $comments; echo $logout; ?>
     </body>
+	<footer>
+		<p>© SJRHEEDERS</p>
+	</footer>
 </html>

@@ -80,4 +80,7 @@ else
         <?php echo $logout; ?>
         </div>
     </body>
+	<footer>
+		<p>© SJRHEEDERS</p>
+	</footer>
 </html>

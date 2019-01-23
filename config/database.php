@@ -1,7 +1,7 @@
 <?php
 	$DB_DSN = 'mysql:host=localhost;dbname=camagru';
 	$DB_DSN_LITE = 'mysql:host=localhost';
-	$DB_USER = 'rheeders';
+	$DB_USER = 'root';
 	$DB_PASSWORD = 'punchbuggy';
 	
 	try

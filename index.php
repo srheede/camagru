@@ -19,4 +19,7 @@ include 'config/database.php';
 <p><a href="login.php">Login</a></p>
 <p><a href="publicgallery.php">View Public Gallery</a></p>
 </body>
+<footer>
+		<p>© SJRHEEDERS</p>
+</footer>
 </html>
