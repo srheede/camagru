@@ -101,4 +101,7 @@
 <p><a href="changedetails.php">Change Account Details</a></p>
 <p><a href="logout.php">Logout</a></p>
 </body>
+<footer>
+		<p>© SJRHEEDERS</p>
+</footer>
 </html>

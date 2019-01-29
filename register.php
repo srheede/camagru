@@ -99,4 +99,7 @@ if(isset($_POST['submit']))
 	</div>
 </div>
 </body>
+<footer>
+		<p>© SJRHEEDERS</p>
+</footer>
 </html>

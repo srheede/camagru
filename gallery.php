@@ -71,4 +71,7 @@ $item .= "<a href='image.php?id=$image->image_id'>" .
         </div>
         <p><a href='logout.php'>Logout</a></p>
     </body>
+	<footer>
+		<p>© SJRHEEDERS</p>
+	</footer>
 </html>
