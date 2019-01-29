@@ -1,9 +1,8 @@
 <?php
-$DB_USER = 'rheeders';
+$DB_USER = 'root';
 $DB_PASSWORD = 'punchbuggy';
 $DB_SERVER = 'localhost';
 $DB_NAME = 'camagru';
-  // setup database
 try {
     $pdo = new PDO("mysql:host=$DB_SERVER", $DB_USER, $DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -50,8 +49,7 @@ try
     echo "Tables created successfully<br>";
 }
 catch (PDOException $e)
-	{
-		die($e->getMessage());
-	}
-
+{
+	die($e->getMessage());
+}
 ?>

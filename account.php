@@ -89,7 +89,7 @@
 <p>Upload Image</p>
 <form method="POST" action="account.php" enctype="multipart/form-data">
   	<div>
-  	  <input type="file" name="image">
+  	  <input type="file" name="image" accept=".jpg,.jpeg,.png,.gif,.bmp,.tif,.tiff">
   	</div>
   	<div>
   		<button type="submit" name="upload">POST</button>

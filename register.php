@@ -43,6 +43,11 @@ if(isset($_POST['submit']))
 		header("Location:register.php?err=" . urlencode("Email already registered."));
 		exit();	
 	}
+	else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+	{
+		header("Location:register.php?err=" . urlencode("Please enter a valid email!"));
+		exit();
+	}
 	$username = $_POST['username'];
 	$email = $_POST['email'];
 	$password = hash('haval256,4', $_POST['password']);
@@ -81,7 +86,7 @@ if(isset($_POST['submit']))
 				</div>
 				<div>
 					<label>Email</label>
-					<input type="email" name="email" placeholder="Email" required>
+					<input type="email" name="email"  placeholder="Email" required>
 				</div>
 				<div>
 					<label>Password</label>

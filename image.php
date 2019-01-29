@@ -13,12 +13,13 @@ if(isset($_SESSION['username']))
 {
 	if ($_SESSION['user_id'] === $result['user_id'])
 	{
-		$delete .= "
-		<div>
-			<p><a href='image.php?id=";
+		$delete .= "<br><div><form method='POST' action='image.php?id=";
 		$delete .= $image_id;
-		$delete .= "&delete=true'>Delete Photo</a></p>
-		</div>";
+		$delete .= "'>
+		<div>
+			<button type='submit' name='delete'>Delete Photo</button>
+			</div>
+		</form></div>";
 	}
 
 	$item .= "
@@ -33,7 +34,8 @@ if(isset($_SESSION['username']))
         <form method='post'>
             <div>
                 <textarea type='text' name='comment' id='comment' placeholder='Comment here' required></textarea>
-            </div>
+			</div>
+			<br>
             <div>
                 <button type='submit' name='submit'>Submit</button>
             </div>
@@ -43,13 +45,13 @@ if(isset($_SESSION['username']))
 	$logout .= "<p><a href='logout.php'>Logout</a></p>";
 }
 
-if (isset($_GET['delete']))
+if (isset($_POST['delete']))
 {
 	$image_id = $_GET['id'];
 	try
 	{
-		$exec = $pdo->prepare("DELETE FROM gallery WHERE image_id=$image_id");
-		$exec->execute();
+		$exec = $pdo->prepare("DELETE FROM gallery WHERE image_id=?");
+		$exec->execute(array($image_id));
 		header("Location:account.php?err=Image has been deleted!");
 		exit();
 	}
@@ -104,8 +106,8 @@ if(isset($_POST['submit']))
 	$username = $_SESSION['username'];
 	$post_comment = $_POST['comment'];
 	try {
-		$exec = $pdo->prepare("insert into comments (image_id,username,comment) values ('$image_id','$username','$post_comment')");
-		$exec->execute();
+		$exec = $pdo->prepare("insert into comments (image_id,username,comment) values (?,?,?)");
+		$exec->execute(array($image_id,$username,$post_comment));
 		header("Location:image.php?id=".$image_id);
 		exit();
 	}
@@ -114,14 +116,15 @@ if(isset($_POST['submit']))
 		echo "Error: ". $e->getMessage(); 
 	}
 }
-
 $user_id = $_SESSION['user_id'];
 $sql = "select * from comments where image_id=$image_id";
 $com = $pdo->query($sql);
 $comments;
 foreach ($com as $comment)
 {
-	$comments .= "<div><p>$comment->username: $comment->comment</p></div>";
+	$comments .= "<div><p>$comment->username: ";
+	$comments .= htmlentities($comment->comment);
+	$comments .= "</p></div>";
 }
 ?>
 <html lang="en">
@@ -142,7 +145,7 @@ foreach ($com as $comment)
 		<div>
 		<p>Number of likes: <?php echo $result['likes']; ?></p>
 		</div>
-		<?php echo $item; echo $comments; echo $logout; ?>
+		<?php echo $item;?> <?php echo $comments;?> <?php echo $logout; ?>
     </body>
 	<footer>
 		<p>© SJRHEEDERS</p>

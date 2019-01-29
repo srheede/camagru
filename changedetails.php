@@ -53,17 +53,16 @@ function isunique($user)
 			header("Location:changedetails.php?err=" . urlencode("Password must contain numbers and letters."));
 			exit();
 		}
-		echo $token;		
 		$password = hash('haval256,4', $_POST['password']);
-		$username = $_POST['username'];
+		$username = htmlentities($_POST['username']);
 		$email = $_POST['email'];
 		if (isset($_POST['notify']))
 			$notify = 1;
 		else
 			$notify = 0;
 		try {
-			$exec = $pdo->prepare("UPDATE users SET username='$username', email='$email', password='$password', notify='$notify' where user_id='$user_id'");
-			$exec->execute();
+			$exec = $pdo->prepare("UPDATE users SET username=?, email=?, password=?, notify='$notify' where user_id='$user_id'");
+			$exec->execute(array($username,$email,$password));
 			header("Location:account.php?err=Your details have been changed!");
 			exit();
 		}
