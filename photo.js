@@ -39,6 +39,7 @@
 
     save.addEventListener('click', function()
     {
+        photo.setAttribute(‘src’, canvas.toDataURL());
         document.getElementById('dataURL').value = canvas.toDataURL();
         console.log(document.getElementById('dataURL').value);
     })
