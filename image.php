@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'config/database.php';
-$image_id = $_GET['id'];
+$image_id = htmlentities($_GET['id']);
 $sql = "select * from gallery where image_id='$image_id'";
 global $pdo;
 $image = $pdo->query($sql);
@@ -122,7 +122,9 @@ $com = $pdo->query($sql);
 $comments;
 foreach ($com as $comment)
 {
-	$comments .= "<div><p>$comment->username: ";
+	$comments .= "<div><p>";
+	$comments .= htmlentities($comment->username);
+	$comments .= ": ";
 	$comments .= htmlentities($comment->comment);
 	$comments .= "</p></div>";
 }

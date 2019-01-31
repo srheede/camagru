@@ -41,7 +41,7 @@ if(isset($_POST['submit']))
 <div>
 <?php if(isset($_GET['err'])) {?>
 		<div>
-			<?php echo $_GET['err']; ?>
+			<?php $err = htmlentities($_GET['err']); echo $err; ?>
 		</div>
 		<?php } ?>
 	<div>

@@ -54,15 +54,15 @@ function isunique($user)
 			exit();
 		}
 		$password = hash('haval256,4', $_POST['password']);
-		$username = htmlentities($_POST['username']);
+		$username = $_POST['username'];
 		$email = $_POST['email'];
 		if (isset($_POST['notify']))
 			$notify = 1;
 		else
 			$notify = 0;
 		try {
-			$exec = $pdo->prepare("UPDATE users SET username=?, email=?, password=?, notify='$notify' where user_id='$user_id'");
-			$exec->execute(array($username,$email,$password));
+			$exec = $pdo->prepare("UPDATE users SET username=?, email=?, password=?, notify=?  where user_id='$user_id'");
+			$exec->execute(array($username,$email,$password, $notify));
 			header("Location:account.php?err=Your details have been changed!");
 			exit();
 		}
@@ -86,7 +86,7 @@ function isunique($user)
 		<p>Please enter your new details:</p>
 		<?php if(isset($_GET['err'])) {?>
 		<div>
-			<?php echo $_GET['err']; ?>
+			<?php $err = htmlentities($_GET['err']); echo $err; ?>
 		</div>
 		<?php } ?>
 			<form method="post">
