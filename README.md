@@ -1,23 +1,23 @@
 # README
 
-# Camagru
+## Camagru
 
 A social-media website that allows users to upload images in a public
 gallery, where other users can like and comment on them.
 
-**Requirements**
+## Requirements
 
 -   MAMP V5.7: <https://www.mamp.info/en/downloads/>
 
-**Installation**
+## Installation
 
-**How to download the source code:**
+### How to download the source code:
 
 -   Go to <https://github.com/srheede/camagru>
 
 -   Click Clone or Download
 
-**How to set up and configure the database:**
+### How to set up and configure the database:
 
 -   Download MAMP
 
@@ -30,11 +30,11 @@ gallery, where other users can like and comment on them.
 -   Open a web browser and go to
     http://localhost:8888/camagru/config/setup.php
 
-**How to run the program:**
+### How to run the program:
 
 -   Open a web browser and go to <http://localhost:8888/camagru/>
 
-**Code Breakdown**
+### Code Breakdown
 
 -   Back end technologies:
 
@@ -124,6 +124,6 @@ gallery, where other users can like and comment on them.
 
         -   Page, where the user can enter a new password.
 
-**Testing**
+### Testing
 
 <https://github.com/wethinkcode-students/corrections_42_curriculum/blob/master/camagru.markingsheet.pdf>
