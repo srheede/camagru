@@ -34,7 +34,7 @@ gallery, where other users can like and comment on them.
 
 -   Open a web browser and go to <http://localhost:8888/camagru/>
 
-### Code Breakdown
+## Code Breakdown
 
 -   Back end technologies:
 
@@ -124,6 +124,6 @@ gallery, where other users can like and comment on them.
 
         -   Page, where the user can enter a new password.
 
-### Testing
+## Testing
 
 <https://github.com/wethinkcode-students/corrections_42_curriculum/blob/master/camagru.markingsheet.pdf>
