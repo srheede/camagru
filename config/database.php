@@ -2,7 +2,7 @@
 	$DB_DSN = 'mysql:host=localhost;dbname=camagru';
 	$DB_DSN_LITE = 'mysql:host=localhost';
 	$DB_USER = 'root';
-	$DB_PASSWORD = 'punchbuggy';
+	$DB_PASSWORD = 'root';
 	
 	try
 	{

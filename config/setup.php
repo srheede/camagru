@@ -1,6 +1,6 @@
 <?php
 $DB_USER = 'root';
-$DB_PASSWORD = 'punchbuggy';
+$DB_PASSWORD = 'root';
 $DB_SERVER = 'localhost';
 $DB_NAME = 'camagru';
 try {
