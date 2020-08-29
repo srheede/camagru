@@ -1,6 +1,6 @@
-#README
+# README
 
-#Camagru
+# Camagru
 
 A social-media website that allows users to upload images in a public
 gallery, where other users can like and comment on them.
